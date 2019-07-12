@@ -1,9 +1,17 @@
+import styled from 'styled-components'
+
+import Layout from '../components/layout'
+
+const StyledP = styled.p`
+  color: ${({ theme }) => theme.secCol};
+`
+
 function Home() {
   return (
-    <div>
-      <h1>test h1</h1>
-      Welcome to Next.js!
-    </div>
+    <Layout>
+      <h1>this is</h1>
+      <StyledP>cos tu pisze</StyledP>
+    </Layout>
   )
 }
 
