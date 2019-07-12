@@ -1,6 +1,6 @@
 const theme = {
   primaryColor: '#33bbee',
-  secCol: 'orange',
+  secCol: 'red',
 }
 
 export default theme

@@ -1,15 +1,30 @@
 import PropTypes from 'prop-types'
 
-import { ThemeProvider } from 'styled-components'
-import Theme from '../utils/theme'
+import styled from 'styled-components'
+
+// import { ThemeProvider } from 'styled-components'
+// import Theme from '../utils/theme'
+
+const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.secondary};
+  height: 100vh;
+  width: 100vw;
+`
 
 const Layout = ({ children }) => {
   return (
-    <ThemeProvider theme={Theme}>
+    <Wrapper>
       <>{children}</>
-    </ThemeProvider>
+    </Wrapper>
   )
 }
+// const Layout = ({ children }) => {
+//   return (
+//     <ThemeProvider theme={Theme}>
+//       <>{children}</>
+//     </ThemeProvider>
+//   )
+// }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
