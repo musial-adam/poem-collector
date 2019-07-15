@@ -2,30 +2,25 @@ import styled from 'styled-components'
 
 import Layout from '../components/layout'
 
-// const StyledP = styled.p`
-//   color: ${({ theme }) => theme.secCol};
-// `
+const StyledIndex = styled.div`
+  h1 {
+    font-family: ${({ theme }) => theme.font.family.prozaLibre};
+  }
 
-const StyledP = styled.p`
-  color: blue;
+  p {
+    font-family: ${({ theme }) => theme.font.family.openSans};
+  }
 `
 
 const Home = () => {
   return (
     <Layout>
-      <h1>this is some header</h1>
-      <StyledP>cos tu pisze</StyledP>
+      <StyledIndex>
+        <h1>this is some header</h1>
+        <p>this is some paragraph</p>
+      </StyledIndex>
     </Layout>
   )
 }
-// function Home() {
-//   console.log(props.theme)
-//   return (
-//     <Layout>
-//       <h1>this is</h1>
-//       <StyledP>cos tu pisze</StyledP>
-//     </Layout>
-//   )
-// }
 
 export default Home

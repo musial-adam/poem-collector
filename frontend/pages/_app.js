@@ -2,42 +2,32 @@ import App, { Container } from 'next/app'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
-const theme = {
-  colors: {
-    primary: '#0070f3',
-    secondary: '#abc333',
-  },
-}
+import Theme from '../utils/theme'
+import GlobalStyle from '../utils/global-styles'
 
 export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
     return (
       <Container>
-        <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <ThemeProvider theme={Theme}>
           <Component {...pageProps} />
         </ThemeProvider>
       </Container>
     )
   }
 }
-// import App, { Container } from 'next/app'
-// import React from 'react'
-// import { ThemeProvider } from 'styled-components'
-
-// const theme = {
-//   colors: {
-//     primary: '#0070f3',
-//   },
-// }
-
 // export default class MyApp extends App {
 //   render() {
 //     const { Component, pageProps } = this.props
 //     return (
 //       <Container>
-//         <ThemeProvider theme={theme}>
-//           <Component {...pageProps} />
+//         <ThemeProvider theme={Theme}>
+//           <>
+//             <GlobalStyle />
+//             <Component {...pageProps} />
+//           </>
 //         </ThemeProvider>
 //       </Container>
 //     )
