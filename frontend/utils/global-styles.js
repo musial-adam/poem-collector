@@ -15,14 +15,18 @@ const GlobalStyle = createGlobalStyle`
     src: url('../static/assets/fonts/OpenSans-Regular.ttf') format('truetype');
   }
   
+  html {
+    font-size: 62.5%;
+  }
+  
   /* BELOW COMMENT DISABLES STYLELINT FOR NORMALIZE.CSS */
   
   /* stylelint-disable */
 
   *, *::before, *::after {
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
   }
   
   /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */

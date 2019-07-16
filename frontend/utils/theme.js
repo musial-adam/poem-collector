@@ -3,6 +3,8 @@ const theme = {
     darkBlue: '#3A4151',
     orange: '#FDB65A',
     red: '#FB5253',
+    lightgrey: '#F0F0F0',
+    darkgrey: '#49515C',
   },
 
   gradients: {
@@ -17,7 +19,7 @@ const theme = {
       ubuntu: 'Ubuntu',
     },
     size: {
-      m: '1rem',
+      normal: '1.6rem',
     },
   },
 }
