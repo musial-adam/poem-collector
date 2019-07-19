@@ -136,9 +136,9 @@ const AddPoem = () => {
           </InputWrapper>
 
           <InputWrapper>
-            <label htmlFor="story">
+            <label htmlFor="content">
               Poem
-              <textarea id="story" name="story">
+              <textarea id="content" name="content">
                 ...
               </textarea>
             </label>
