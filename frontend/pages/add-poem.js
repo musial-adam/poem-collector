@@ -99,7 +99,7 @@ const AddPoem = () => {
       <FormWrapper>
         <h1>Add new poem</h1>
 
-        <form action="" method="POST">
+        <form action="http://localhost:3001/api/poems/add" method="POST">
           <InputWrapper>
             <label htmlFor="author">
               Author
@@ -107,7 +107,7 @@ const AddPoem = () => {
             </label>
           </InputWrapper>
 
-          <InputWrapper>
+          {/* <InputWrapper>
             <label htmlFor="volume">
               Volume
               <input type="text" name="volume" id="volume" />
@@ -142,7 +142,7 @@ const AddPoem = () => {
                 ...
               </textarea>
             </label>
-          </InputWrapper>
+          </InputWrapper> */}
 
           <button type="submit">Add</button>
         </form>
