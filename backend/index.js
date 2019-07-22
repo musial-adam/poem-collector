@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
 
 const poemsRoutes = require('./routes/poems')
 
@@ -27,4 +28,13 @@ app.post('/', (req, res, next) => {
 })
 
 
-app.listen(3001)
+// mongoose.connect('mongodb+srv://adam:EQTGQbN4LAXedCh9@cluster0-52lh1.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://adam:EQTGQbN4LAXedCh9@cluster0-52lh1.mongodb.net/poems_collector?retryWrites=true&w=majority', { useNewUrlParser: true })
+  .then(res => {
+    console.log('SUCCESS')
+    app.listen(3001)
+  }
+  )
+  .catch(err => {
+    console.log(err)
+  })

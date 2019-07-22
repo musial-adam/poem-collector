@@ -18,7 +18,7 @@ const StyledNavigation = styled.nav`
 `
 
 const StyledLink = styled.a`
-  font-family: ${({ theme }) => theme.font.family.prozaLibre};
+  font-family: ${({ theme }) => theme.font.family.openSans};
   font-size: 3rem;
   text-decoration: none;
   margin-right: 2rem;

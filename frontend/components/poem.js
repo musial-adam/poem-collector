@@ -3,19 +3,12 @@ import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
 
-// const DummyData = {
-//   author: 'Hugo Claus',
-//   volume: 'Oostakkerse gedichten',
-//   year: '1955',
-//   title: 'Marsua',
-//   content: 'De koorts van mijn lied, de landwijn van mijn stem...',
-// }
-
 const PoemWrapper = styled.div`
   width: 300px;
   height: 400px;
   background-color: white;
   border-radius: 0.5rem;
+  margin: 2rem;
   padding: 3rem;
   display: flex;
   flex-direction: column;
