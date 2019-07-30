@@ -110,6 +110,7 @@ const Form = () => {
     const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ author, volume, year, title }),
+      // body: JSON.stringify({ author }),
       headers: {
         'Content-Type': 'application/json',
       },

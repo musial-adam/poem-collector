@@ -31,7 +31,28 @@ const GradientBox = styled.div`
   background: ${({ theme }) => theme.gradients.JShine};
 `
 
-const Poem = ({ author, volume, year, title, content }) => {
+const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const Button = styled.button`
+  background-color: ${({ theme }) => theme.colors.darkgrey};
+  color: white;
+  font-family: ${({ theme }) => theme.font.family.openSans};
+  font-size: 1.6rem;
+  padding: 0.5rem;
+  width: 7rem;
+  border: none;
+  border-radius: 0.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+// const Poem = ({ author, volume, year, title, content, handleDelete }) => {
+const Poem = ({ author, volume, year, title, handleDelete }) => {
   return (
     <PoemWrapper>
       <GradientBox />
@@ -39,8 +60,13 @@ const Poem = ({ author, volume, year, title, content }) => {
       <h3>{volume}</h3>
       <h3>{year}</h3>
       <h3>{title}</h3>
-      <p>{content}</p>
-      <GradientBox />
+      {/* <p>{content}</p> */}
+
+      <ButtonsWrapper>
+        <Button>View</Button>
+        <Button>Edit</Button>
+        <Button onClick={handleDelete}>Delete</Button>
+      </ButtonsWrapper>
     </PoemWrapper>
   )
 }
@@ -48,9 +74,10 @@ const Poem = ({ author, volume, year, title, content }) => {
 Poem.propTypes = {
   author: PropTypes.string.isRequired,
   volume: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  // content: PropTypes.string.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 }
 
 export default Poem

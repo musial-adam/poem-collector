@@ -12,6 +12,7 @@ module.exports = {
 		"prettier/react"
 	],
 	"rules": {
+    "no-underscore-dangle": 0,
     "react/jsx-filename-extension": 0,
     "react/react-in-jsx-scope": 0,
 		"prettier/prettier": [

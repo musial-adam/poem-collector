@@ -8,4 +8,8 @@ router.get('/poems', poemsController.getPoems)
 
 router.post('/poems/add', poemsController.addPoem)
 
+router.delete('/poems/:id', poemsController.deletePoem)
+
+router.get('/poems/random', poemsController.generateRandomPoems)
+
 module.exports = router

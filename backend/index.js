@@ -29,7 +29,7 @@ app.post('/', (req, res, next) => {
 
 
 // mongoose.connect('mongodb+srv://adam:EQTGQbN4LAXedCh9@cluster0-52lh1.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true })
-mongoose.connect('mongodb+srv://adam:EQTGQbN4LAXedCh9@cluster0-52lh1.mongodb.net/poems_collector?retryWrites=true&w=majority', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://adam:uiPW4XX4jFXmbd2n@cluster0-52lh1.mongodb.net/poems-collector?retryWrites=true&w=majority', { useNewUrlParser: true })
   .then(res => {
     console.log('SUCCESS')
     app.listen(3001)
