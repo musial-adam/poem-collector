@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const FormWrapper = styled.div`
   width: 30vw;
@@ -74,14 +75,6 @@ const InputWrapper = styled.div`
   }
 `
 
-// const DummyData = {
-//   author: 'Hugo Claus',
-//   volume: 'Oostakkerse gedichten',
-//   year: '1955',
-//   title: 'Marsua',
-//   content: 'De koorts van mijn lied, de landwijn van mijn stem...',
-// }
-
 const Form = () => {
   const [author, setAuthor] = useState('')
   const [volume, setVolume] = useState('')
@@ -107,19 +100,29 @@ const Form = () => {
 
   const handleSubmit = async e => {
     const url = 'http://localhost:3001/api/poems/add'
-    const res = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({ author, volume, year, title }),
-      // body: JSON.stringify({ author }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    // const res = await axios.post(url, {
+    await axios.post(url, {
+      author,
+      volume,
+      year,
+      title,
     })
-    await res.json()
-    // const json = await res.json()
-    // console.log(json)
     e.preventDefault()
   }
+  // const handleSubmit = async e => {
+  //   const url = 'http://localhost:3001/api/poems/add'
+  //   const res = await fetch(url, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ author, volume, year, title }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //   await res.json()
+  //   // const json = await res.json()
+  //   // console.log(json)
+  //   e.preventDefault()
+  // }
 
   return (
     <FormWrapper>
@@ -196,76 +199,8 @@ const Form = () => {
 
         <button type="submit">Add</button>
       </form>
-      {/* <form action="http://localhost:3001/api/poems/add" method="POST">
-          <InputWrapper>
-            <label htmlFor="author">
-              Author
-              <input type="text" name="author" id="author" />
-            </label>
-          </InputWrapper>
-
-          <button type="submit">Add</button>
-        </form> */}
     </FormWrapper>
   )
 }
 
 export default Form
-
-// const AddPoem = () => {
-//   return (
-//     <Layout>
-//       <FormWrapper>
-//         <h1>Add new poem</h1>
-
-//         <form action="http://localhost:3001/api/poems/add" method="POST">
-//           <InputWrapper>
-//             <label htmlFor="author">
-//               Author
-//               <input type="text" name="author" id="author" />
-//             </label>
-//           </InputWrapper>
-
-//           {/* <InputWrapper>
-//             <label htmlFor="volume">
-//               Volume
-//               <input type="text" name="volume" id="volume" />
-//             </label>
-//           </InputWrapper>
-
-//           <InputWrapper>
-//             <label htmlFor="year">
-//               Year of publication
-//               <input
-//                 type="number"
-//                 min="1900"
-//                 max="2019"
-//                 step="1"
-//                 name="year"
-//                 id="year"
-//               />
-//             </label>
-//           </InputWrapper>
-
-//           <InputWrapper>
-//             <label htmlFor="title">
-//               Title
-//               <input type="text" name="title" id="title" />
-//             </label>
-//           </InputWrapper>
-
-//           <InputWrapper>
-//             <label htmlFor="content">
-//               Poem
-//               <textarea id="content" name="content">
-//                 ...
-//               </textarea>
-//             </label>
-//           </InputWrapper> */}
-
-//           <button type="submit">Add</button>
-//         </form>
-//       </FormWrapper>
-//     </Layout>
-//   )
-// }

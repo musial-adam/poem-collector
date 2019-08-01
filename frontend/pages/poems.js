@@ -7,9 +7,9 @@ import Poem from '../components/poem'
 
 const PoemsWrapper = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
-  padding: 3rem;
+  padding: 3rem 0rem;
 `
 
 const Poems = () => {
@@ -28,7 +28,7 @@ const Poems = () => {
     fetchData()
   }, [])
 
-  const handleDelete = async id => {
+  const deletePoem = async id => {
     const url = `http://localhost:3001/api/poems/${id}`
     const res = await axios.delete(url)
 
@@ -48,7 +48,7 @@ const Poems = () => {
       volume={poem.volume}
       year={poem.year}
       title={poem.title}
-      handleDelete={() => handleDelete(poem._id)}
+      deletePoem={() => deletePoem(poem._id)}
     />
   ))
 
