@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Modal from './modal'
-import Backdrop from './backdrop'
+import Button from './button'
 
 const PoemWrapper = styled.div`
   width: 300px;
@@ -36,21 +36,6 @@ const PoemWrapper = styled.div`
 const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-`
-
-const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.darkgrey};
-  color: white;
-  font-family: ${({ theme }) => theme.font.family.openSans};
-  font-size: 1.6rem;
-  padding: 0.5rem;
-  width: 7rem;
-  border: none;
-  border-radius: 0.5rem;
-
-  &:hover {
-    cursor: pointer;
-  }
 `
 
 const MetaDataElement = styled.div`
@@ -117,13 +102,27 @@ const Poem = ({ author, volume, year, title, deletePoem }) => {
       {/* <p>{content}</p> */}
 
       <ButtonsWrapper>
-        <Button onClick={handleView}>View</Button>
-        <Button onClick={handleEdit}>Edit</Button>
-        <Button onClick={handleDelete}>Delete</Button>
+        <Button color="red" onClick={handleView}>
+          View
+        </Button>
+        <Button color="red" onClick={handleEdit}>
+          Edit
+        </Button>
+        <Button color="red" onClick={handleDelete}>
+          Delete
+        </Button>
       </ButtonsWrapper>
 
-      <Backdrop close={handleClose} show={showModal} />
-      <Modal mode={modalMode} show={showModal} deleteAction={deletePoem}>
+      {/* <Backdrop close={handleClose} show={showModal} />
+      <Modal mode={modalMode} show={showModal} deleteAction={deletePoem}> */}
+
+      {/* <Backdrop close={handleClose} show={showModal} /> */}
+      <Modal
+        mode={modalMode}
+        show={showModal}
+        close={handleClose}
+        deleteAction={deletePoem}
+      >
         <p>{author}</p>
         <p>{volume}</p>
         <p>{year}</p>

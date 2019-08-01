@@ -11,13 +11,15 @@ const BackdropWrapper = styled.div`
   z-index: 400;
 `
 
-const Backdrop = ({ show, close }) => {
-  return <>{show && <BackdropWrapper onClick={close} />}</>
+// const Backdrop = ({ show, close }) => {
+const Backdrop = ({ close, children }) => {
+  return <BackdropWrapper onClick={close}>{children}</BackdropWrapper>
 }
 
 Backdrop.propTypes = {
-  show: PropTypes.bool.isRequired,
+  // show: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default Backdrop
