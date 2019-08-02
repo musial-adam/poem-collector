@@ -16,7 +16,7 @@ background-color: ${props => props.color};
   &:hover {
     cursor: pointer;
     /* background-color: ${lighten(0.2, '#49515C')}; */
-    background-color: ${props => darken(0.1, props.color)};
+    background-color: ${props => darken(0.2, props.color)};
   }
 `
 

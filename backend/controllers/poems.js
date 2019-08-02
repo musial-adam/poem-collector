@@ -15,10 +15,10 @@ exports.getPoems = async (req, res, next) => {
 
 exports.addPoem = async (req, res, next) => {
   
-  const {author, volume, year, title} = req.body
+  const { author, volume, year, title, content } = req.body
   
   const poem = new Poem({
-    author, volume, year, title
+    author, volume, year, title, content,
   })
   
   try {
@@ -45,7 +45,7 @@ exports.deletePoem = async (req, res, next) => {
   }
 }
 
-exports.generateRandomPoems = (req, res, next) => {
+exports.generateRandomPoems = async (req, res, next) => {
   
   
   for(i=0; i < 5; i++ ) {
@@ -56,9 +56,15 @@ exports.generateRandomPoems = (req, res, next) => {
       volume: dummyPoem.volume,
       year: dummyPoem.year,
       title: dummyPoem.title,
+      content: dummyPoem.content,
     })
     
-    randomPoem.save()
+    // console.log('----------------------------------');
+    // console.log(randomPoem)
+    // console.log('----------------------------------');
+    
+    
+    await randomPoem.save()
       // .then(result => {
       //   // res.status(201).send('Random poem added')
       // })

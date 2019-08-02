@@ -53,12 +53,12 @@ const MetaDataElement = styled.div`
 `
 
 // const Poem = ({ author, volume, year, title, content, handleDelete }) => {
-const Poem = ({ author, volume, year, title, deletePoem }) => {
+const Poem = ({ author, volume, year, title, content, deletePoem }) => {
   const [showModal, setShowModal] = useState(false)
-  const [modalMode, setModalMode] = useState('')
+  const [modalMode, setModalMode] = useState('closed')
 
   const handleClose = () => {
-    setModalMode('')
+    setModalMode('closed')
     setShowModal(false)
   }
 
@@ -102,13 +102,13 @@ const Poem = ({ author, volume, year, title, deletePoem }) => {
       {/* <p>{content}</p> */}
 
       <ButtonsWrapper>
-        <Button color="red" onClick={handleView}>
+        <Button color="#29b6f6" onClick={handleView}>
           View
         </Button>
-        <Button color="red" onClick={handleEdit}>
+        <Button color="#ffd54f" onClick={handleEdit}>
           Edit
         </Button>
-        <Button color="red" onClick={handleDelete}>
+        <Button color="#ff5252" onClick={handleDelete}>
           Delete
         </Button>
       </ButtonsWrapper>
@@ -123,10 +123,15 @@ const Poem = ({ author, volume, year, title, deletePoem }) => {
         close={handleClose}
         deleteAction={deletePoem}
       >
-        <p>{author}</p>
+        {/* <p>{author}</p>
         <p>{volume}</p>
         <p>{year}</p>
-        <p>{title}</p>
+        <p>{title}</p> */}
+        <h1>{title}</h1>
+        <h2>{`by ${author}`}</h2>
+        <pre>
+          <p>{content}</p>
+        </pre>
       </Modal>
     </PoemWrapper>
   )
@@ -137,7 +142,7 @@ Poem.propTypes = {
   volume: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  // content: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   deletePoem: PropTypes.func.isRequired,
 }
 

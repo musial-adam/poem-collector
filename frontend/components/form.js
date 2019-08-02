@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const FormWrapper = styled.div`
-  width: 30vw;
-  margin: 10rem auto;
+  width: 60vw;
+  margin: 5rem auto;
   font-family: ${({ theme }) => theme.font.family.openSans};
   padding: 3rem;
   background-color: white;
@@ -20,22 +20,15 @@ const FormWrapper = styled.div`
     font-size: 2rem;
     font-family: ${({ theme }) => theme.font.family.openSans};
     border-radius: 10rem;
-    background: ${({ theme }) => theme.gradients.JShine};
-    transition: transform 0.25s ease-in-out;
+    /* background: ${({ theme }) => theme.gradients.JShine}; */
+    background-color: ${({ theme }) => theme.colors.red};
+    transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
 
     &:hover {
       cursor: pointer;
-      transform: translateY(-2px);
+      transform: translateY(-4px);
+      box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.3);
     }
-  }
-`
-
-const InputWrapper = styled.div`
-  margin: 2rem 0;
-
-  *:focus {
-    outline: none;
-    border-bottom: 2px solid ${({ theme }) => theme.colors.red};
   }
 
   label {
@@ -43,6 +36,26 @@ const InputWrapper = styled.div`
     color: ${({ theme }) => theme.colors.darkgrey};
     display: block;
   }
+
+  h1 {
+    margin-bottom: 4rem;
+  }
+`
+
+const InputWrapper = styled.div`
+  margin: 0rem 0rem 2rem 0rem;
+
+  *:focus {
+    outline: none;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.red};
+  }
+
+
+  /* label {
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.colors.darkgrey};
+    display: block;
+  } */
 
   input {
     margin-top: 0.5rem;
@@ -62,9 +75,10 @@ const InputWrapper = styled.div`
 
     /* stylelint-enable */
   }
+  
 
-  textarea {
-    margin-top: 0.5rem;
+
+  /* textarea {
     padding-left: 0;
     width: 100%;
     height: 100%;
@@ -72,6 +86,32 @@ const InputWrapper = styled.div`
     resize: none;
     border: none;
     border-bottom: 2px solid ${({ theme }) => theme.colors.lightgrey};
+  } */
+`
+
+const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`
+
+const SideWrapper = styled.div`
+  width: 49%;
+  /* border: 2px solid orange; */
+`
+
+const TextareaWrapper = styled.div`
+  textarea {
+    margin-top: 2.4rem;
+    white-space: pre;
+    resize: none;
+    width: 100%;
+    min-height: 19.8rem;
+    border: 2px solid ${({ theme }) => theme.colors.lightgrey};
+  }
+  *:focus {
+    outline: none;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.red};
   }
 `
 
@@ -80,7 +120,7 @@ const Form = () => {
   const [volume, setVolume] = useState('')
   const [year, setYear] = useState('')
   const [title, setTitle] = useState('')
-  // const [content, setContent] = useState('')
+  const [content, setContent] = useState('')
 
   const handleAuthorChange = e => {
     setAuthor(e.target.value)
@@ -94,9 +134,9 @@ const Form = () => {
   const handleTitleChange = e => {
     setTitle(e.target.value)
   }
-  // const handleContentChange = e => {
-  //   setContent(e.target.value)
-  // }
+  const handleContentChange = e => {
+    setContent(e.target.value)
+  }
 
   const handleSubmit = async e => {
     const url = 'http://localhost:3001/api/poems/add'
@@ -106,98 +146,88 @@ const Form = () => {
       volume,
       year,
       title,
+      content,
     })
     e.preventDefault()
   }
-  // const handleSubmit = async e => {
-  //   const url = 'http://localhost:3001/api/poems/add'
-  //   const res = await fetch(url, {
-  //     method: 'POST',
-  //     body: JSON.stringify({ author, volume, year, title }),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //   await res.json()
-  //   // const json = await res.json()
-  //   // console.log(json)
-  //   e.preventDefault()
-  // }
 
   return (
     <FormWrapper>
       <h1>Add new poem</h1>
-
       <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <label htmlFor="author">
-            Author
-            <input
-              type="text"
-              name="author"
-              id="author"
-              value={author}
-              onChange={handleAuthorChange}
-            />
-          </label>
-        </InputWrapper>
+        <FlexWrapper>
+          <SideWrapper>
+            <InputWrapper>
+              <label htmlFor="author">
+                Author
+                <input
+                  type="text"
+                  name="author"
+                  id="author"
+                  value={author}
+                  onChange={handleAuthorChange}
+                />
+              </label>
+            </InputWrapper>
 
-        <InputWrapper>
-          <label htmlFor="author">
-            Volume
-            <input
-              type="text"
-              name="volume"
-              id="volume"
-              value={volume}
-              onChange={handleVolumeChange}
-            />
-          </label>
-        </InputWrapper>
+            <InputWrapper>
+              <label htmlFor="author">
+                Volume
+                <input
+                  type="text"
+                  name="volume"
+                  id="volume"
+                  value={volume}
+                  onChange={handleVolumeChange}
+                />
+              </label>
+            </InputWrapper>
 
-        <InputWrapper>
-          <label htmlFor="year">
-            Year of publication
-            <input
-              type="number"
-              min="1900"
-              max="2019"
-              step="1"
-              name="year"
-              id="year"
-              value={year}
-              onChange={handleYearChange}
-            />
-          </label>
-        </InputWrapper>
+            <InputWrapper>
+              <label htmlFor="year">
+                Year of publication
+                <input
+                  type="number"
+                  min="1900"
+                  max="2019"
+                  step="1"
+                  name="year"
+                  id="year"
+                  value={year}
+                  onChange={handleYearChange}
+                />
+              </label>
+            </InputWrapper>
 
-        <InputWrapper>
-          <label htmlFor="title">
-            Title
-            <input
-              type="text"
-              name="title"
-              id="title"
-              value={title}
-              onChange={handleTitleChange}
-            />
-          </label>
-        </InputWrapper>
+            <InputWrapper>
+              <label htmlFor="title">
+                Title
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  value={title}
+                  onChange={handleTitleChange}
+                />
+              </label>
+            </InputWrapper>
+          </SideWrapper>
+          <SideWrapper>
+            <TextareaWrapper>
+              <label htmlFor="content">
+                Content
+                <textarea
+                  name="content"
+                  id="content"
+                  value={content}
+                  onChange={handleContentChange}
+                />
+              </label>
+            </TextareaWrapper>
 
-        {/* <InputWrapper>
-          <label htmlFor="content">
-            Content
-            <input
-              type="text"
-              name="content"
-              id="content"
-              value={content}
-              onChange={handleContentChange}
-            />
-          </label>
-        </InputWrapper> */}
-
-        <button type="submit">Add</button>
+            <button type="submit">Add</button>
+          </SideWrapper>
+        </FlexWrapper>
       </form>
     </FormWrapper>
   )

@@ -48,6 +48,7 @@ const Poems = () => {
       volume={poem.volume}
       year={poem.year}
       title={poem.title}
+      content={poem.content}
       deletePoem={() => deletePoem(poem._id)}
     />
   ))

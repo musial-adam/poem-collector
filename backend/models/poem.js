@@ -7,27 +7,32 @@ const poemSchema = new Schema ({
   author: {
     type: String,
     required: true,
+    trim: true,
   },
   
   volume: {
     type: String,
-    required: true,  
+    required: true,
+    trim: true,  
   },
   
   year: {
     type: Number,
     required: true,
+    // min: 1800,
+    // max: 2019,
   },
   
   title: {
     type: String,
     required: true,
+    trim: true,
   },
   
-  // content: {
-  //   type: String,
-  //   required: true,
-  // },
+  content: {
+    type: String,
+    required: true,
+  },
   
 })
 

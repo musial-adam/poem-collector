@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Backdrop from './backdrop'
 import Button from './button'
+import Form from './form'
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -21,6 +22,12 @@ const ModalWrapper = styled.div`
   font-family: ${({ theme }) => theme.font.family.openSans};
   text-align: center;
   /* line-height: 1; */
+
+  pre {
+    color: ${({ theme }) => theme.colors.darkgrey};
+    font-family: ${({ theme }) => theme.font.family.openSans};
+    text-align: left;
+  }
 `
 
 const ButtonsWrapper = styled.div`
@@ -33,15 +40,17 @@ const Modal = ({ mode, show, close, deleteAction, children }) => {
 
   if (mode === 'view') {
     // This should be children in the end
-    modalContent = (
-      <>
-        <h1>Here I will put the poem</h1>
-        {children}
-      </>
-    )
+    modalContent = <>{children}</>
   }
   if (mode === 'edit') {
-    modalContent = <h1>Here you will be able to edit the poem</h1>
+    modalContent = (
+      <>
+        <h1>Here you will be able to edit the poem, but...</h1>
+        <h2>It does not work yet, so don&pos;t try...</h2>
+        <h2>It&pos;s only a mockup forgit m</h2>
+        <Form />
+      </>
+    )
   }
   if (mode === 'delete') {
     modalContent = (
@@ -49,10 +58,16 @@ const Modal = ({ mode, show, close, deleteAction, children }) => {
         <h1>Are you sure you want to delete this poem?</h1>
         <ButtonsWrapper>
           <Button color="red" type="button" onClick={deleteAction}>
-            YESSSS
+            Yes
+            <span role="img" aria-label="collision emoji">
+              💥
+            </span>
           </Button>
           <Button color="green" type="button" onClick={close}>
-            CANCEL
+            No
+            <span role="img" aria-label="collision emoji">
+              🌻
+            </span>
           </Button>
         </ButtonsWrapper>
       </>
@@ -62,16 +77,17 @@ const Modal = ({ mode, show, close, deleteAction, children }) => {
   return (
     <>
       {show && (
-        <Backdrop close={close}>
+        <>
+          <Backdrop close={close} />
           <ModalWrapper>{modalContent}</ModalWrapper>
-        </Backdrop>
+        </>
       )}
     </>
   )
 }
 
 Modal.propTypes = {
-  mode: PropTypes.oneOf(['view', 'edit', 'delete']).isRequired,
+  mode: PropTypes.oneOf(['view', 'edit', 'delete', 'closed']).isRequired,
   show: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   deleteAction: PropTypes.func.isRequired,
