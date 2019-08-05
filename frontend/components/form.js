@@ -1,24 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import axios from 'axios'
 
 const FormWrapper = styled.div`
   width: 60vw;
-  margin: 5rem auto;
+  /* margin: 5rem auto; */
   font-family: ${({ theme }) => theme.font.family.openSans};
   padding: 3rem;
   background-color: white;
   border-radius: 0.5rem;
-  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.3); */
+  text-align: left;
 
   button {
-    width: 80%;
+    width: 20rem;
     height: 5rem;
     display: block;
     margin: 5rem auto 2rem auto;
     color: white;
     font-size: 2rem;
     font-family: ${({ theme }) => theme.font.family.openSans};
+    border: none;
     border-radius: 10rem;
     /* background: ${({ theme }) => theme.gradients.JShine}; */
     background-color: ${({ theme }) => theme.colors.red};
@@ -71,6 +74,7 @@ const InputWrapper = styled.div`
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
+    -moz-appearance: none;
     margin: 0;
 
     /* stylelint-enable */
@@ -102,11 +106,15 @@ const SideWrapper = styled.div`
 
 const TextareaWrapper = styled.div`
   textarea {
-    margin-top: 2.4rem;
+    box-sizing: border-box;
+    margin-top: 2.5rem;
     white-space: pre;
     resize: none;
     width: 100%;
-    min-height: 19.8rem;
+    min-height: 19.7rem;
+    /* min-height: 20rem; */
+
+    height: auto;
     border: 2px solid ${({ theme }) => theme.colors.lightgrey};
   }
   *:focus {
@@ -115,7 +123,7 @@ const TextareaWrapper = styled.div`
   }
 `
 
-const Form = () => {
+const Form = ({ mode, poemData }) => {
   const [author, setAuthor] = useState('')
   const [volume, setVolume] = useState('')
   const [year, setYear] = useState('')
@@ -138,22 +146,45 @@ const Form = () => {
     setContent(e.target.value)
   }
 
+  const handleClearForm = () => {
+    setAuthor('')
+    setVolume('')
+    setYear('')
+    setTitle('')
+    setContent('')
+  }
+
+  useEffect(() => {
+    if (mode === 'edit' && poemData) {
+      setAuthor(poemData.author)
+      setVolume(poemData.volume)
+      setYear(poemData.year)
+      setTitle(poemData.title)
+      setContent(poemData.content)
+    }
+  }, [mode, poemData])
+
   const handleSubmit = async e => {
+    e.preventDefault()
     const url = 'http://localhost:3001/api/poems/add'
-    // const res = await axios.post(url, {
-    await axios.post(url, {
+    const res = await axios.post(url, {
+      // await axios.post(url, {
       author,
       volume,
       year,
       title,
       content,
     })
-    e.preventDefault()
+
+    if (res.status === 201) {
+      handleClearForm()
+    }
+    // e.preventDefault()
   }
 
   return (
     <FormWrapper>
-      <h1>Add new poem</h1>
+      <h1>{mode === 'create' ? 'Add new poem' : 'Edit poem'}</h1>
       <form onSubmit={handleSubmit}>
         <FlexWrapper>
           <SideWrapper>
@@ -224,13 +255,26 @@ const Form = () => {
                 />
               </label>
             </TextareaWrapper>
-
-            <button type="submit">Add</button>
           </SideWrapper>
         </FlexWrapper>
+        {/* <button type="button" onClick={handleClearForm}>
+          Cancel
+        </button> */}
+        <button type="submit">Submit</button>
       </form>
     </FormWrapper>
   )
 }
 
 export default Form
+
+Form.propTypes = {
+  mode: PropTypes.oneOf(['create', 'edit']).isRequired,
+  poemData: PropTypes.shape({
+    author: PropTypes.string.isRequired,
+    volume: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
+}

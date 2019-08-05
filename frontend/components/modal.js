@@ -20,7 +20,7 @@ const ModalWrapper = styled.div`
   padding: 2rem;
 
   font-family: ${({ theme }) => theme.font.family.openSans};
-  text-align: center;
+  /* text-align: center; */
   /* line-height: 1; */
 
   pre {
@@ -35,20 +35,31 @@ const ButtonsWrapper = styled.div`
   justify-content: space-around;
 `
 
-const Modal = ({ mode, show, close, deleteAction, children }) => {
+// const Modal = ({ mode, show, close, deleteAction, children, poemData }) => {
+const Modal = ({ mode, show, close, deleteAction, poemData }) => {
   let modalContent
+
+  // const poemData = {
+  //   author: 'Anonymous',
+  // }
 
   if (mode === 'view') {
     // This should be children in the end
-    modalContent = <>{children}</>
+    // modalContent = <>{children}</>
+    modalContent = (
+      <>
+        <h1>{poemData.title}</h1>
+        <h2>{`by ${poemData.author}`}</h2>
+        <pre>
+          <p>{poemData.content}</p>
+        </pre>
+      </>
+    )
   }
   if (mode === 'edit') {
     modalContent = (
       <>
-        <h1>Here you will be able to edit the poem, but...</h1>
-        <h2>It does not work yet, so don&pos;t try...</h2>
-        <h2>It&pos;s only a mockup forgit m</h2>
-        <Form />
+        <Form mode="edit" poemData={poemData} />
       </>
     )
   }
@@ -91,7 +102,14 @@ Modal.propTypes = {
   show: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   deleteAction: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  // children: PropTypes.node.isRequired,
+  poemData: PropTypes.shape({
+    author: PropTypes.string.isRequired,
+    volume: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 export default Modal

@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
 
   *, *::before, *::after {
     box-sizing: border-box;
+    /* text-transform: uppercase; */
     /* -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale; */
   }

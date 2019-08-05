@@ -77,6 +77,8 @@ const Poem = ({ author, volume, year, title, content, deletePoem }) => {
     setShowModal(true)
   }
 
+  const poemData = { author, volume, year, title, content }
+
   return (
     <PoemWrapper>
       <MetaDataElement>
@@ -122,16 +124,17 @@ const Poem = ({ author, volume, year, title, content, deletePoem }) => {
         show={showModal}
         close={handleClose}
         deleteAction={deletePoem}
+        poemData={poemData}
       >
         {/* <p>{author}</p>
         <p>{volume}</p>
         <p>{year}</p>
         <p>{title}</p> */}
-        <h1>{title}</h1>
+        {/* <h1>{title}</h1>
         <h2>{`by ${author}`}</h2>
         <pre>
           <p>{content}</p>
-        </pre>
+        </pre> */}
       </Modal>
     </PoemWrapper>
   )

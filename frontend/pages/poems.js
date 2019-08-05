@@ -20,10 +20,10 @@ const Poems = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get('http://localhost:3001/api/poems')
+      const res = await axios.get('http://localhost:3001/api/poems')
+      const { data } = res
       setPoems(data)
       setLoading(false)
-      // console.log('USE EFFECT')
     }
     fetchData()
   }, [])
