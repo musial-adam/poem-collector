@@ -36,7 +36,7 @@ const ButtonsWrapper = styled.div`
 `
 
 // const Modal = ({ mode, show, close, deleteAction, children, poemData }) => {
-const Modal = ({ mode, show, close, deleteAction, poemData }) => {
+const Modal = ({ mode, show, close, deleteAction, editAction, poemData }) => {
   let modalContent
 
   // const poemData = {
@@ -59,7 +59,7 @@ const Modal = ({ mode, show, close, deleteAction, poemData }) => {
   if (mode === 'edit') {
     modalContent = (
       <>
-        <Form mode="edit" poemData={poemData} />
+        <Form mode="edit" poemData={poemData} editHandler={editAction} />
       </>
     )
   }
@@ -102,8 +102,10 @@ Modal.propTypes = {
   show: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
   deleteAction: PropTypes.func.isRequired,
+  editAction: PropTypes.func.isRequired,
   // children: PropTypes.node.isRequired,
   poemData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     volume: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,

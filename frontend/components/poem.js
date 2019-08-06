@@ -53,7 +53,17 @@ const MetaDataElement = styled.div`
 `
 
 // const Poem = ({ author, volume, year, title, content, handleDelete }) => {
-const Poem = ({ author, volume, year, title, content, deletePoem }) => {
+
+const Poem = ({
+  id,
+  author,
+  volume,
+  year,
+  title,
+  content,
+  deletePoem,
+  editPoem,
+}) => {
   const [showModal, setShowModal] = useState(false)
   const [modalMode, setModalMode] = useState('closed')
 
@@ -70,6 +80,7 @@ const Poem = ({ author, volume, year, title, content, deletePoem }) => {
   const handleEdit = () => {
     setModalMode('edit')
     setShowModal(true)
+    // editPoem()
   }
 
   const handleDelete = () => {
@@ -77,7 +88,7 @@ const Poem = ({ author, volume, year, title, content, deletePoem }) => {
     setShowModal(true)
   }
 
-  const poemData = { author, volume, year, title, content }
+  const poemData = { id, author, volume, year, title, content }
 
   return (
     <PoemWrapper>
@@ -124,29 +135,22 @@ const Poem = ({ author, volume, year, title, content, deletePoem }) => {
         show={showModal}
         close={handleClose}
         deleteAction={deletePoem}
+        editAction={editPoem}
         poemData={poemData}
-      >
-        {/* <p>{author}</p>
-        <p>{volume}</p>
-        <p>{year}</p>
-        <p>{title}</p> */}
-        {/* <h1>{title}</h1>
-        <h2>{`by ${author}`}</h2>
-        <pre>
-          <p>{content}</p>
-        </pre> */}
-      </Modal>
+      />
     </PoemWrapper>
   )
 }
 
 Poem.propTypes = {
+  id: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   volume: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   deletePoem: PropTypes.func.isRequired,
+  editPoem: PropTypes.func.isRequired,
 }
 
 export default Poem

@@ -123,7 +123,19 @@ const TextareaWrapper = styled.div`
   }
 `
 
-const Form = ({ mode, poemData }) => {
+const StatusMessage = styled.div`
+  font-family: ${({ theme }) => theme.font.family.openSans};
+  font-size: 2rem;
+  color: ${props => (props.success === 'SUCCESS' ? 'green' : 'red')};
+  background-color: white;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+`
+
+const Form = ({ mode, poemData, editHandler }) => {
+  const [submissionStatus, setSubmissionStatus] = useState('')
+
   const [author, setAuthor] = useState('')
   const [volume, setVolume] = useState('')
   const [year, setYear] = useState('')
@@ -166,23 +178,48 @@ const Form = ({ mode, poemData }) => {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    const url = 'http://localhost:3001/api/poems/add'
-    const res = await axios.post(url, {
-      // await axios.post(url, {
-      author,
-      volume,
-      year,
-      title,
-      content,
-    })
 
-    if (res.status === 201) {
-      handleClearForm()
+    if (mode === 'create') {
+      const url = 'http://localhost:3001/api/poems/add'
+      const res = await axios.post(url, {
+        // await axios.post(url, {
+        author,
+        volume,
+        year,
+        title,
+        content,
+      })
+
+      if (res.status === 201) {
+        handleClearForm()
+        setSubmissionStatus('SUCCESS')
+      } else {
+        setSubmissionStatus('FAILURE')
+      }
     }
-    // e.preventDefault()
+
+    if (mode === 'edit' && poemData) {
+      const url = `http://localhost:3001/api/poems/${poemData.id}`
+      const res = await axios.put(url, {
+        author,
+        volume,
+        year,
+        title,
+        content,
+      })
+      if (res.status === 200) {
+        editHandler()
+        setSubmissionStatus('SUCCESS')
+        // await editHandler()
+      } else {
+        setSubmissionStatus('FAILURE')
+      }
+    }
   }
 
-  return (
+  return submissionStatus === 'SUCCESS' ? (
+    <StatusMessage success={submissionStatus}>{submissionStatus}</StatusMessage>
+  ) : (
     <FormWrapper>
       <h1>{mode === 'create' ? 'Add new poem' : 'Edit poem'}</h1>
       <form onSubmit={handleSubmit}>
@@ -271,10 +308,12 @@ export default Form
 Form.propTypes = {
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
   poemData: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     volume: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
   }).isRequired,
+  editHandler: PropTypes.func.isRequired,
 }

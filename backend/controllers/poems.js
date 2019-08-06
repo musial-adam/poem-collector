@@ -2,7 +2,7 @@ const dummy = require('mongoose-dummy')
 
 const Poem = require('../models/poem')
 
-exports.getPoems = async (req, res, next) => {
+exports.getPoems = async (req, res, next) => {    
   
   try {
     const poems = await Poem.find()
@@ -13,9 +13,24 @@ exports.getPoems = async (req, res, next) => {
   }
 }
 
+exports.getSinglePoem = async (req, res, next) => {
+  const poemId = req.params.id
+
+  try {
+    const poem = await Poem.findById(poemId)
+    res.status(200).json(poem)
+  }
+  catch (error) {
+    console.log(error);
+  }
+  
+}
+
 exports.addPoem = async (req, res, next) => {
   
   const { author, volume, year, title, content } = req.body
+  
+  console.log(req.body)
   
   const poem = new Poem({
     author, volume, year, title, content,
@@ -43,6 +58,46 @@ exports.deletePoem = async (req, res, next) => {
   catch (error) {
     console.log(error)
   }
+}
+
+exports.updatePoem = async (req, res, next) => {
+  
+  const poemId = req.params.id
+  
+  const { author, volume, year, title, content } = req.body
+  
+  try {
+    const poem = await Poem.findById(poemId)
+    if (poem) {
+      poem.author = author
+      poem.volume = volume
+      poem.year = year
+      poem.title = title
+      poem.content = content
+      
+      await poem.save()
+      res.status(200).send('Oh, so you want to update me?')
+    }  
+  }
+  catch (error) {
+    console.log(error)
+  }
+  
+  
+  
+  // console.log(req.body)
+  // res.status(200).send('Oh, so you want to update me?')
+  
+  // try {
+  //   const poem = await Poem.findById(poemId)
+  //   if (poem) {
+  //     await Poem.findByIdAndDelete(poemId)
+  //     res.status(200).send('Poem deleted')
+  //   }
+  // }
+  // catch (error) {
+  //   console.log(error)
+  // }
 }
 
 exports.generateRandomPoems = async (req, res, next) => {
