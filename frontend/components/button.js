@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import { lighten, darken } from 'polished'
+import { darken } from 'polished'
 
 const Button = styled.button`
-  /* background-color: ${({ theme }) => theme.colors.darkgrey}; */
-background-color: ${props => props.color};
+  background-color: ${props => props.color};
   color: white;
   font-family: ${({ theme }) => theme.font.family.openSans};
   font-size: 1.6rem;
@@ -15,7 +14,6 @@ background-color: ${props => props.color};
 
   &:hover {
     cursor: pointer;
-    /* background-color: ${lighten(0.2, '#49515C')}; */
     background-color: ${props => darken(0.2, props.color)};
   }
 `

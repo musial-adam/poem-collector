@@ -2,14 +2,11 @@ import styled from 'styled-components'
 import Link from 'next/link'
 
 const StyledNavigation = styled.nav`
-  /* border: 1px solid orange; */
-
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    /* justify-content: space-around; */
     li {
       display: inline-block;
       color: pink;

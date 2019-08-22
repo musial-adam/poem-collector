@@ -1,14 +1,23 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import { useDispatch } from 'react-redux'
+
 import styled from 'styled-components'
+import { fetchPoems } from '../store/actions/poemsActions'
+
+import {
+  showModalView,
+  showModalEdit,
+  showModalDelete,
+} from '../store/actions/modalActions'
 
 import Modal from './modal'
 import Button from './button'
 
 const PoemWrapper = styled.div`
   width: 300px;
-  height: 400px;
+  height: 500px;
   background-color: white;
   border-radius: 0.5rem;
   margin: 2rem;
@@ -90,6 +99,8 @@ const Poem = ({
 
   const poemData = { id, author, volume, year, title, content }
 
+  const dispatch = useDispatch()
+
   return (
     <PoemWrapper>
       <MetaDataElement>
@@ -126,10 +137,27 @@ const Poem = ({
         </Button>
       </ButtonsWrapper>
 
-      {/* <Backdrop close={handleClose} show={showModal} />
-      <Modal mode={modalMode} show={showModal} deleteAction={deletePoem}> */}
+      <h1>Redux actions</h1>
 
-      {/* <Backdrop close={handleClose} show={showModal} /> */}
+      <ButtonsWrapper>
+        <Button color="#764abc" onClick={() => dispatch(showModalView(id))}>
+          View
+        </Button>
+        <Button color="#764abc" onClick={() => dispatch(showModalEdit(id))}>
+          Edit
+        </Button>
+        <Button color="#764abc" onClick={() => dispatch(showModalDelete(id))}>
+          Delete
+        </Button>
+      </ButtonsWrapper>
+
+      <ButtonsWrapper>
+        <Button color="#764abc" onClick={() => dispatch(fetchPoems())}>
+          +++
+        </Button>
+        <Button color="#764abc">---</Button>
+      </ButtonsWrapper>
+
       <Modal
         mode={modalMode}
         show={showModal}
