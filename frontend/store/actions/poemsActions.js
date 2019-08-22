@@ -64,6 +64,10 @@ export const deletePoem = id => {
     return axios.delete(url).then(res => {
       if (res.status === 200) {
         dispatch(deletePoemSuccess(id))
+        //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
+        dispatch({
+          type: actionTypes.HIDE_MODAL,
+        })
       } else {
         dispatch(deletePoemFailure())
       }

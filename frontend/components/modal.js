@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 
 // import { deletePoem } from '../store/actions/poemsActions'
 import { hideModal } from '../store/actions/modalActions'
+import { deletePoem } from '../store/actions/poemsActions'
 
 import Backdrop from './backdrop'
-// import Button from './button'
+import Button from './button'
 // import Form from './form'
 
 const ModalWrapper = styled.div`
@@ -29,10 +30,10 @@ const ModalWrapper = styled.div`
   }
 `
 
-// const ButtonsWrapper = styled.div`
-//   display: flex;
-//   justify-content: space-around;
-// `
+const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
 
 const Modal = () => {
   let modalContent
@@ -42,15 +43,55 @@ const Modal = () => {
   const mode = useSelector(state => state.modal.mode)
   const isShown = useSelector(state => state.modal.showModal)
 
+  const poem = useSelector(state => {
+    return state.poems.poems.find(singlePoem => {
+      return singlePoem._id === state.poems.selectedPoemId
+    })
+  })
+
+  console.log('poem', poem)
+  //! !! This component seems to be mounted too often
+  //! !! Ivestigate - below console.log shows multiple times
+
+  console.log('Hi from Modal')
+
   switch (mode) {
     case 'view':
-      modalContent = 'opened in view mode'
+      modalContent = (
+        <>
+          <h1>{poem.title}</h1>
+          <h2>{`by ${poem.author}`}</h2>
+          <pre>
+            <p>{poem.content}</p>
+          </pre>
+        </>
+      )
       break
     case 'edit':
       modalContent = 'opened in edit mode'
       break
     case 'delete':
-      modalContent = 'opened in delete mode'
+      modalContent = (
+        <>
+          <h1>Are you sure you want to delete this poem?</h1>
+          <ButtonsWrapper>
+            <Button
+              color="red"
+              type="button"
+              onClick={() => dispatch(deletePoem(poem._id))}
+            >
+              Yes
+            </Button>
+            <Button
+              color="green"
+              type="button"
+              onClick={() => dispatch(hideModal())}
+            >
+              No
+            </Button>
+          </ButtonsWrapper>
+        </>
+      )
       break
     default:
       modalContent = 'ERROR: UNKNOWN MODE'

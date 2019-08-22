@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import { useDispatch } from 'react-redux'
@@ -61,44 +61,8 @@ const MetaDataElement = styled.div`
   }
 `
 
-// const Poem = ({ author, volume, year, title, content, handleDelete }) => {
-
-const Poem = ({
-  id,
-  author,
-  volume,
-  year,
-  title,
-  content,
-  deletePoem,
-  editPoem,
-}) => {
-  const [showModal, setShowModal] = useState(false)
-  const [modalMode, setModalMode] = useState('closed')
-
-  const handleClose = () => {
-    setModalMode('closed')
-    setShowModal(false)
-  }
-
-  const handleView = () => {
-    setModalMode('view')
-    setShowModal(true)
-  }
-
-  const handleEdit = () => {
-    setModalMode('edit')
-    setShowModal(true)
-    // editPoem()
-  }
-
-  const handleDelete = () => {
-    setModalMode('delete')
-    setShowModal(true)
-  }
-
-  const poemData = { id, author, volume, year, title, content }
-
+// const Poem = ({ id, author, volume, year, title, content }) => {
+const Poem = ({ id, author, volume, year, title }) => {
   const dispatch = useDispatch()
 
   return (
@@ -126,15 +90,9 @@ const Poem = ({
       {/* <p>{content}</p> */}
 
       <ButtonsWrapper>
-        <Button color="#29b6f6" onClick={handleView}>
-          View
-        </Button>
-        <Button color="#ffd54f" onClick={handleEdit}>
-          Edit
-        </Button>
-        <Button color="#ff5252" onClick={handleDelete}>
-          Delete
-        </Button>
+        <Button color="#29b6f6">View</Button>
+        <Button color="#ffd54f">Edit</Button>
+        <Button color="#ff5252">Delete</Button>
       </ButtonsWrapper>
 
       <h1>Redux actions</h1>
@@ -158,14 +116,15 @@ const Poem = ({
         <Button color="#764abc">---</Button>
       </ButtonsWrapper>
 
-      <Modal
+      {/* <Modal
         mode={modalMode}
         show={showModal}
         close={handleClose}
         deleteAction={deletePoem}
         editAction={editPoem}
         poemData={poemData}
-      />
+      /> */}
+      <Modal />
     </PoemWrapper>
   )
 }
@@ -176,9 +135,7 @@ Poem.propTypes = {
   volume: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  deletePoem: PropTypes.func.isRequired,
-  editPoem: PropTypes.func.isRequired,
+  // content: PropTypes.string.isRequired,
 }
 
 export default Poem
