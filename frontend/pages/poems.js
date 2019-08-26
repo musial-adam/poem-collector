@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Layout from '../components/layout'
 import Poem from '../components/poem'
 import Modal from '../components/modal'
+import Filters from '../components/filters'
 
 import { fetchPoems } from '../store/actions/poemsActions'
 
@@ -19,6 +20,19 @@ const Poems = () => {
   const dispatch = useDispatch()
 
   const poems = useSelector(state => state.poems.poems)
+
+  const compareByYear = (a, b) => {
+    // if (a.year > b.year) return 1
+    // if (a.year < b.year) return -1
+    // return 0
+    // return -(a.year - b.year)
+    return a.year - b.year
+  }
+
+  const poemsSortedByYear = [...poems].sort(compareByYear)
+  // const poemsSortedByYear = [...poems]
+
+  console.log('poemsSortedByYear', poemsSortedByYear)
 
   useEffect(() => {
     dispatch(fetchPoems())
@@ -38,6 +52,7 @@ const Poems = () => {
 
   return (
     <Layout>
+      <Filters />
       <PoemsWrapper>{poemsList}</PoemsWrapper>
       <Modal />
     </Layout>
