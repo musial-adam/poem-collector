@@ -50,11 +50,11 @@ const Modal = () => {
     })
   })
 
-  // console.log('poem', poem)
+  console.log('poem', poem)
   //! !! This component seems to be mounted too often
   //! !! Ivestigate - below console.log shows multiple times
 
-  // console.log('Hi from Modal')
+  console.log('Hi from Modal')
 
   switch (mode) {
     case 'view':

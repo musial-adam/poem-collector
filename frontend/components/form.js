@@ -320,6 +320,17 @@ Form.propTypes = {
     year: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   // editHandler: PropTypes.func.isRequired,
+}
+
+Form.defaultProps = {
+  poemData: {
+    _id: '',
+    author: '',
+    volume: '',
+    year: 0,
+    title: '',
+    content: '',
+  },
 }

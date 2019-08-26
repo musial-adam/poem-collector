@@ -9,6 +9,12 @@ export const selectPoem = id => {
   }
 }
 
+export const deselectPoem = () => {
+  return {
+    type: actionTypes.DESELECT_POEM,
+  }
+}
+
 export const fetchPoemsRequest = () => {
   return {
     type: actionTypes.FETCH_POEMS_REQUEST,

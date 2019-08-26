@@ -1,13 +1,13 @@
 import actionTypes from './actionTypes'
 
-import { selectPoem } from './poemsActions'
+import { selectPoem, deselectPoem } from './poemsActions'
 
-export const showModal = mode => {
-  return {
-    type: actionTypes.SHOW_MODAL,
-    mode,
-  }
-}
+// export const showModal = mode => {
+//   return {
+//     type: actionTypes.SHOW_MODAL,
+//     mode,
+//   }
+// }
 
 export const showModalView = id => {
   return dispatch => {
@@ -40,7 +40,15 @@ export const showModalDelete = id => {
 }
 
 export const hideModal = () => {
-  return {
-    type: actionTypes.HIDE_MODAL,
+  return dispatch => {
+    dispatch(deselectPoem())
+    dispatch({
+      type: actionTypes.HIDE_MODAL,
+    })
   }
 }
+// export const hideModal = () => {
+//   return {
+//     type: actionTypes.HIDE_MODAL,
+//   }
+// }

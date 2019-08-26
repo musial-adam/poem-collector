@@ -14,6 +14,11 @@ const poems = (state = initialState, action) => {
         ...state,
         selectedPoemId: action.id,
       }
+    case actionTypes.DESELECT_POEM:
+      return {
+        ...state,
+        selectedPoemId: null,
+      }
 
     case actionTypes.FETCH_POEMS_REQUEST:
       return {
