@@ -74,3 +74,42 @@ export const deletePoem = id => {
     })
   }
 }
+
+export const editPoemRequest = () => {
+  return {
+    type: actionTypes.EDIT_POEM_REQUEST,
+  }
+}
+
+export const editPoemSuccess = (id, updatedPoem) => {
+  return {
+    type: actionTypes.EDIT_POEM_SUCCESS,
+    id,
+    updatedPoem,
+  }
+}
+
+export const editPoemFailure = () => {
+  return {
+    type: actionTypes.EDIT_POEM_FAILURE,
+  }
+}
+
+export const editPoem = id => {
+  return dispatch => {
+    dispatch(editPoemRequest())
+    const url = `http://localhost:3001/api/poems/${id}`
+    axios.get(url).then(res => {
+      if (res.status === 200) {
+        const updatedPoem = res.data
+        dispatch(editPoemSuccess(id, updatedPoem))
+        //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
+        dispatch({
+          type: actionTypes.HIDE_MODAL,
+        })
+      } else {
+        dispatch(editPoemFailure)
+      }
+    })
+  }
+}

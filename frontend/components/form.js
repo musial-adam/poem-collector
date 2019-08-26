@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import axios from 'axios'
 
+import { useDispatch } from 'react-redux'
+import { editPoem } from '../store/actions/poemsActions'
+
 const FormWrapper = styled.div`
   width: 60vw;
   /* margin: 5rem auto; */
@@ -133,7 +136,10 @@ const StatusMessage = styled.div`
   border-radius: 0.5rem;
 `
 
-const Form = ({ mode, poemData, editHandler }) => {
+// const Form = ({ mode, poemData, editHandler }) => {
+const Form = ({ mode, poemData }) => {
+  const dispatch = useDispatch()
+
   const [submissionStatus, setSubmissionStatus] = useState('')
 
   const [author, setAuthor] = useState('')
@@ -199,7 +205,7 @@ const Form = ({ mode, poemData, editHandler }) => {
     }
 
     if (mode === 'edit' && poemData) {
-      const url = `http://localhost:3001/api/poems/${poemData.id}`
+      const url = `http://localhost:3001/api/poems/${poemData._id}`
       const res = await axios.put(url, {
         author,
         volume,
@@ -208,7 +214,7 @@ const Form = ({ mode, poemData, editHandler }) => {
         content,
       })
       if (res.status === 200) {
-        editHandler()
+        dispatch(editPoem(poemData._id))
         setSubmissionStatus('SUCCESS')
         // await editHandler()
       } else {
@@ -308,12 +314,12 @@ export default Form
 Form.propTypes = {
   mode: PropTypes.oneOf(['create', 'edit']).isRequired,
   poemData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     volume: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
   }).isRequired,
-  editHandler: PropTypes.func.isRequired,
+  // editHandler: PropTypes.func.isRequired,
 }

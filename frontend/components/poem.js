@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 
 import styled from 'styled-components'
-import { fetchPoems } from '../store/actions/poemsActions'
 
 import {
   showModalView,
@@ -12,7 +11,6 @@ import {
   showModalDelete,
 } from '../store/actions/modalActions'
 
-import Modal from './modal'
 import Button from './button'
 
 const PoemWrapper = styled.div`
@@ -61,7 +59,6 @@ const MetaDataElement = styled.div`
   }
 `
 
-// const Poem = ({ id, author, volume, year, title, content }) => {
 const Poem = ({ id, author, volume, year, title }) => {
   const dispatch = useDispatch()
 
@@ -87,14 +84,6 @@ const Poem = ({ id, author, volume, year, title }) => {
         <h4>Title</h4>
       </MetaDataElement>
 
-      {/* <p>{content}</p> */}
-
-      <ButtonsWrapper>
-        <Button color="#29b6f6">View</Button>
-        <Button color="#ffd54f">Edit</Button>
-        <Button color="#ff5252">Delete</Button>
-      </ButtonsWrapper>
-
       <h1>Redux actions</h1>
 
       <ButtonsWrapper>
@@ -108,23 +97,6 @@ const Poem = ({ id, author, volume, year, title }) => {
           Delete
         </Button>
       </ButtonsWrapper>
-
-      <ButtonsWrapper>
-        <Button color="#764abc" onClick={() => dispatch(fetchPoems())}>
-          +++
-        </Button>
-        <Button color="#764abc">---</Button>
-      </ButtonsWrapper>
-
-      {/* <Modal
-        mode={modalMode}
-        show={showModal}
-        close={handleClose}
-        deleteAction={deletePoem}
-        editAction={editPoem}
-        poemData={poemData}
-      /> */}
-      <Modal />
     </PoemWrapper>
   )
 }
@@ -135,7 +107,6 @@ Poem.propTypes = {
   volume: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  // content: PropTypes.string.isRequired,
 }
 
 export default Poem

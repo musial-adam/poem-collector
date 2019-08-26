@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import Layout from '../components/layout'
 import Poem from '../components/poem'
+import Modal from '../components/modal'
 
 import { fetchPoems } from '../store/actions/poemsActions'
 
@@ -38,6 +39,7 @@ const Poems = () => {
   return (
     <Layout>
       <PoemsWrapper>{poemsList}</PoemsWrapper>
+      <Modal />
     </Layout>
   )
 }

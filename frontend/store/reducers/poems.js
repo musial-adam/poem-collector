@@ -47,6 +47,31 @@ const poems = (state = initialState, action) => {
         poems: updatedPoems,
       }
     }
+    //! Re-think this
+    case actionTypes.EDIT_POEM_REQUEST:
+      return {
+        ...state,
+      }
+    case actionTypes.EDIT_POEM_SUCCESS: {
+      const updatedPoems = state.poems.map(poem => {
+        if (poem._id !== action.id) {
+          return poem
+        }
+
+        return action.updatedPoem
+      })
+      return {
+        ...state,
+        poems: updatedPoems,
+      }
+    }
+
+    //! Re-think this
+
+    case actionTypes.EDIT_POEM_FAILURE:
+      return {
+        ...state,
+      }
 
     default:
       return state
