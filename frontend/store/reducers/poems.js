@@ -5,6 +5,7 @@ const initialState = {
   selectedPoemId: null,
   isFetching: false,
   isDeleting: false,
+  error: null,
 }
 
 const poems = (state = initialState, action) => {
@@ -36,6 +37,7 @@ const poems = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+        error: action.error,
       }
     case actionTypes.DELETE_POEM_REQUEST:
       return {
@@ -52,6 +54,13 @@ const poems = (state = initialState, action) => {
         poems: updatedPoems,
       }
     }
+    case actionTypes.DELETE_POEM_FAILURE:
+      return {
+        ...state,
+        isDeleting: false,
+        error: action.error,
+      }
+
     //! Re-think this
     case actionTypes.EDIT_POEM_REQUEST:
       return {

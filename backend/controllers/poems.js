@@ -30,8 +30,6 @@ exports.addPoem = async (req, res, next) => {
   
   const { author, volume, year, title, content } = req.body
   
-  console.log(req.body)
-  
   const poem = new Poem({
     author, volume, year, title, content,
   })
@@ -53,6 +51,10 @@ exports.deletePoem = async (req, res, next) => {
     if (poem) {
       await Poem.findByIdAndDelete(poemId)
       res.status(200).send('Poem deleted')
+    }
+    else {
+      console.log('poem not found, you idiot')
+      res.status(404).send('Poem could not be deleted, because it was not found')
     }
   }
   catch (error) {
@@ -103,7 +105,7 @@ exports.updatePoem = async (req, res, next) => {
 exports.generateRandomPoems = async (req, res, next) => {
   
   
-  for(i=0; i < 5; i++ ) {
+  for(i=0; i < 3; i++ ) {
     const dummyPoem = dummy(Poem)
     
     const randomPoem = new Poem({

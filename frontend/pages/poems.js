@@ -21,18 +21,18 @@ const Poems = () => {
 
   const poems = useSelector(state => state.poems.poems)
 
-  const compareByYear = (a, b) => {
-    // if (a.year > b.year) return 1
-    // if (a.year < b.year) return -1
-    // return 0
-    // return -(a.year - b.year)
-    return a.year - b.year
-  }
+  // const compareByYear = (a, b) => {
+  // if (a.year > b.year) return 1
+  // if (a.year < b.year) return -1
+  // return 0
+  // return -(a.year - b.year)
+  // return a.year - b.year
+  // }
 
-  const poemsSortedByYear = [...poems].sort(compareByYear)
+  // const poemsSortedByYear = [...poems].sort(compareByYear)
   // const poemsSortedByYear = [...poems]
 
-  console.log('poemsSortedByYear', poemsSortedByYear)
+  // console.log('poemsSortedByYear', poemsSortedByYear)
 
   useEffect(() => {
     dispatch(fetchPoems())

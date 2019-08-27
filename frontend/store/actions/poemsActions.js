@@ -28,9 +28,10 @@ export const fetchPoemsSuccess = data => {
   }
 }
 
-export const fetchPoemsFailure = () => {
+export const fetchPoemsFailure = error => {
   return {
     type: actionTypes.FETCH_POEMS_FAILURE,
+    error,
   }
 }
 
@@ -41,6 +42,7 @@ export const fetchPoems = () => {
       .get('http://localhost:3001/api/poems')
       .then(res => res.data)
       .then(data => dispatch(fetchPoemsSuccess(data)))
+      .catch(error => dispatch(fetchPoemsFailure(error)))
   }
 }
 
@@ -57,9 +59,10 @@ export const deletePoemSuccess = id => {
   }
 }
 
-export const deletePoemFailure = () => {
+export const deletePoemFailure = error => {
   return {
     type: actionTypes.DELETE_POEM_FAILURE,
+    error,
   }
 }
 
@@ -67,17 +70,22 @@ export const deletePoem = id => {
   return dispatch => {
     dispatch(deletePoemRequest())
     const url = `http://localhost:3001/api/poems/${id}`
-    return axios.delete(url).then(res => {
-      if (res.status === 200) {
+    return axios
+      .delete(url)
+      .then(res => {
+        console.log(res)
         dispatch(deletePoemSuccess(id))
-        //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
+        //   //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
         dispatch({
           type: actionTypes.HIDE_MODAL,
         })
-      } else {
-        dispatch(deletePoemFailure())
-      }
-    })
+      })
+      .catch(error => {
+        console.log('Hi, I am handling failed delete request')
+        console.log(error.response)
+        dispatch(deletePoemFailure('Deleting poem failed'))
+        // dispatch(fetchPoems())
+      })
   }
 }
 
