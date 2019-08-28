@@ -4,7 +4,9 @@ module.exports = {
 	},
 	
 	"env": {
-		"browser": true,
+    "browser": true,
+    "node": true,
+    "jest": true,
 	},
 	"extends": [
 		"airbnb",
@@ -37,6 +39,7 @@ module.exports = {
 	// "parser": "babel-eslint",
 	"plugins": [
     "prettier",
-    "react-hooks"
+    "react-hooks",
+    "jest"
 	]
 }
