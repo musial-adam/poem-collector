@@ -12,6 +12,32 @@ import Poem from './poem'
 //   </>
 // )
 
+// describe('my first test', () => {
+//   // const mockStore = configureStore()
+//   // const initialState = {}
+//   // let store
+//   // let wrapper
+
+//   // const store = mockStore(initialState)
+
+//   const wrapper = shallow(
+//     <Poem id="a" author="a" volume="a" year={2019} title="a" />
+//   )
+
+//   // console.log(wrapper)
+
+//   // beforeEach(() => {
+//   //   wrapper = shallow(<ExampleComponent />)
+//   // })
+
+//   // test('Component has h1', () => {
+//   //   expect(wrapper.find('h1')).toHaveLength(1)
+//   // })
+//   test('Component has h3', () => {
+//     // expect(wrapper).toContainMatchingElement('h3')
+//     expect(wrapper.find('h3'))
+//   })
+// })
 describe('my first test', () => {
   const mockStore = configureStore()
   const initialState = {}
@@ -37,6 +63,6 @@ describe('my first test', () => {
   // })
   test('Component has h3', () => {
     // expect(wrapper).toContainMatchingElement('h3')
-    expect(wrapper.find('PoemWrappers'))
+    expect(wrapper.find('PoemWrapper'))
   })
 })

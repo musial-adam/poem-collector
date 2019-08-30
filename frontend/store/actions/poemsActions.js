@@ -76,9 +76,9 @@ export const deletePoem = id => {
         console.log(res)
         dispatch(deletePoemSuccess(id))
         //   //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
-        dispatch({
-          type: actionTypes.HIDE_MODAL,
-        })
+        // dispatch({
+        //   type: actionTypes.HIDE_MODAL,
+        // })
       })
       .catch(error => {
         console.log('Hi, I am handling failed delete request')
@@ -118,9 +118,9 @@ export const editPoem = id => {
         const updatedPoem = res.data
         dispatch(editPoemSuccess(id, updatedPoem))
         //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
-        dispatch({
-          type: actionTypes.HIDE_MODAL,
-        })
+        // dispatch({
+        //   type: actionTypes.HIDE_MODAL,
+        // })
       } else {
         dispatch(editPoemFailure)
       }

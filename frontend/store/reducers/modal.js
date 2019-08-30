@@ -14,6 +14,8 @@ const modal = (state = initialState, action) => {
         mode: action.mode,
       }
     case actionTypes.HIDE_MODAL:
+    case actionTypes.DELETE_POEM_SUCCESS:
+    case actionTypes.EDIT_POEM_SUCCESS:
       return {
         ...state,
         showModal: false,
