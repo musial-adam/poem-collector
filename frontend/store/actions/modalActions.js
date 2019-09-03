@@ -2,13 +2,6 @@ import actionTypes from './actionTypes'
 
 import { selectPoem, deselectPoem } from './poemsActions'
 
-// export const showModal = mode => {
-//   return {
-//     type: actionTypes.SHOW_MODAL,
-//     mode,
-//   }
-// }
-
 export const showModalView = id => {
   return dispatch => {
     dispatch(selectPoem(id))

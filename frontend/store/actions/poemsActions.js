@@ -75,10 +75,6 @@ export const deletePoem = id => {
       .then(res => {
         console.log(res)
         dispatch(deletePoemSuccess(id))
-        //   //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
-        // dispatch({
-        //   type: actionTypes.HIDE_MODAL,
-        // })
       })
       .catch(error => {
         console.log('Hi, I am handling failed delete request')
@@ -103,9 +99,10 @@ export const editPoemSuccess = (id, updatedPoem) => {
   }
 }
 
-export const editPoemFailure = () => {
+export const editPoemFailure = error => {
   return {
     type: actionTypes.EDIT_POEM_FAILURE,
+    error,
   }
 }
 
@@ -113,17 +110,14 @@ export const editPoem = id => {
   return dispatch => {
     dispatch(editPoemRequest())
     const url = `http://localhost:3001/api/poems/${id}`
-    axios.get(url).then(res => {
-      if (res.status === 200) {
+    axios
+      .get(url)
+      .then(res => {
         const updatedPoem = res.data
         dispatch(editPoemSuccess(id, updatedPoem))
-        //! !! THIS IS JUST A WORKAROUND - FIND BETTER SOLUTION - MODAL HIDE SHOULD NOT BE DISPATCHED HERE
-        // dispatch({
-        //   type: actionTypes.HIDE_MODAL,
-        // })
-      } else {
-        dispatch(editPoemFailure)
-      }
-    })
+      })
+      .catch(error => {
+        dispatch(editPoemFailure(error))
+      })
   }
 }

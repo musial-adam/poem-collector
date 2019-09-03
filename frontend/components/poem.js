@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
 import styled from 'styled-components'
 
@@ -59,9 +59,7 @@ const MetaDataElement = styled.div`
   }
 `
 
-const Poem = ({ id, author, volume, year, title }) => {
-  const dispatch = useDispatch()
-
+export const Poem = ({ id, author, volume, year, title, dispatch }) => {
   return (
     <PoemWrapper>
       <MetaDataElement>
@@ -107,6 +105,8 @@ Poem.propTypes = {
   volume: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
+
+  dispatch: PropTypes.func.isRequired,
 }
 
-export default Poem
+export default connect()(Poem)

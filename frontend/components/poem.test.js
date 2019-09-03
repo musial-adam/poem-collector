@@ -1,68 +1,40 @@
-import { shallow } from 'enzyme'
-import { Provider } from 'react-redux'
-import configureStore from 'redux-mock-store'
+// import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 
-import Poem from './poem'
+import { ThemeProvider } from 'styled-components'
+import { Poem } from './poem'
+import Button from './button'
 
-// const ExampleComponent = () => (
-//   <>
-//     <h1>Title</h1>
-//     <h2>Subtitle</h2>
-//     <h3>One more level deep</h3>
-//   </>
-// )
+import theme from '../utils/theme'
 
-// describe('my first test', () => {
-//   // const mockStore = configureStore()
-//   // const initialState = {}
-//   // let store
-//   // let wrapper
-
-//   // const store = mockStore(initialState)
-
-//   const wrapper = shallow(
-//     <Poem id="a" author="a" volume="a" year={2019} title="a" />
-//   )
-
-//   // console.log(wrapper)
-
-//   // beforeEach(() => {
-//   //   wrapper = shallow(<ExampleComponent />)
-//   // })
-
-//   // test('Component has h1', () => {
-//   //   expect(wrapper.find('h1')).toHaveLength(1)
-//   // })
-//   test('Component has h3', () => {
-//     // expect(wrapper).toContainMatchingElement('h3')
-//     expect(wrapper.find('h3'))
-//   })
-// })
-describe('my first test', () => {
-  const mockStore = configureStore()
-  const initialState = {}
-  // let store
-  // let wrapper
-
-  const store = mockStore(initialState)
-
-  const wrapper = shallow(
-    <Provider store={store}>
-      <Poem id="a" author="a" volume="a" year={2019} title="a" />
-    </Provider>
+describe('<Poem />', () => {
+  const wrapper = mount(
+    <ThemeProvider theme={theme}>
+      <Poem
+        id="a"
+        author="a"
+        volume="a"
+        year={2019}
+        title="a"
+        dispatch={() => null}
+      />
+    </ThemeProvider>
   )
 
-  console.log(wrapper)
-
-  // beforeEach(() => {
-  //   wrapper = shallow(<ExampleComponent />)
+  // test('Component includes Button', () => {
+  //   expect(wrapper.find(Button)).toHaveLength(3)
   // })
 
-  // test('Component has h1', () => {
-  //   expect(wrapper.find('h1')).toHaveLength(1)
+  // test('Component contains exactly four h3 and h4', () => {
+  //   // expect(wrapper.containsMatchingElement(<h4>Volume</h4>)).toEqual(true)
+  //   expect(wrapper.find('h3')).toHaveLength(4)
+  //   expect(wrapper.find('h4')).toHaveLength(4)
   // })
-  test('Component has h3', () => {
-    // expect(wrapper).toContainMatchingElement('h3')
-    expect(wrapper.find('PoemWrapper'))
+
+  test('Component receives all props', () => {
+    expect(wrapper.find(Poem)).toHaveProp({ id: 'a' })
+  })
+  test('Component contains three Buttons', () => {
+    expect(wrapper.find(Button)).toHaveLength(3)
   })
 })
