@@ -38,11 +38,18 @@ export const fetchPoemsFailure = error => {
 export const fetchPoems = () => {
   return dispatch => {
     dispatch(fetchPoemsRequest())
-    return axios
-      .get('http://localhost:3001/api/poems')
-      .then(res => res.data)
-      .then(data => dispatch(fetchPoemsSuccess(data)))
-      .catch(error => dispatch(fetchPoemsFailure(error)))
+    // console.log('I am actually called')
+    return (
+      axios
+        .get('http://localhost:3001/api/poems')
+        .then(res => res.data)
+        // .then(res => {
+        //   console.log(res)
+        //   return res.data
+        // })
+        .then(data => dispatch(fetchPoemsSuccess(data)))
+        .catch(error => dispatch(fetchPoemsFailure(error)))
+    )
   }
 }
 
@@ -77,10 +84,7 @@ export const deletePoem = id => {
         dispatch(deletePoemSuccess(id))
       })
       .catch(error => {
-        console.log('Hi, I am handling failed delete request')
-        console.log(error.response)
-        dispatch(deletePoemFailure('Deleting poem failed'))
-        // dispatch(fetchPoems())
+        dispatch(deletePoemFailure(error))
       })
   }
 }
@@ -110,7 +114,7 @@ export const editPoem = id => {
   return dispatch => {
     dispatch(editPoemRequest())
     const url = `http://localhost:3001/api/poems/${id}`
-    axios
+    return axios
       .get(url)
       .then(res => {
         const updatedPoem = res.data

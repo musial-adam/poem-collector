@@ -1,4 +1,3 @@
-// import { shallow, mount } from 'enzyme'
 import { mount } from 'enzyme'
 
 import { ThemeProvider } from 'styled-components'
@@ -20,16 +19,6 @@ describe('<Poem />', () => {
       />
     </ThemeProvider>
   )
-
-  // test('Component includes Button', () => {
-  //   expect(wrapper.find(Button)).toHaveLength(3)
-  // })
-
-  // test('Component contains exactly four h3 and h4', () => {
-  //   // expect(wrapper.containsMatchingElement(<h4>Volume</h4>)).toEqual(true)
-  //   expect(wrapper.find('h3')).toHaveLength(4)
-  //   expect(wrapper.find('h4')).toHaveLength(4)
-  // })
 
   test('Component receives all props', () => {
     expect(wrapper.find(Poem)).toHaveProp({ id: 'a' })

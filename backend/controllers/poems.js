@@ -4,6 +4,8 @@ const Poem = require('../models/poem')
 
 exports.getPoems = async (req, res, next) => {    
   
+  console.log('Hi, I am HIT')
+  
   try {
     const poems = await Poem.find()
     res.status(200).json(poems)

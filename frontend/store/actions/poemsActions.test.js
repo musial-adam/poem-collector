@@ -1,7 +1,10 @@
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import axios from 'axios'
 import actionTypes from './actionTypes'
 import * as poemsActions from './poemsActions'
+
+//! EXPERIMENTS WITH MOCKING AXIOS
 
 const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
@@ -138,7 +141,7 @@ describe('Poems actions [sync]', () => {
 
 // Poems async actions testing
 // fetchPoems
-// deletePoemw
+// deletePoem
 // editPoem
 
 describe('Poem actions [async]', () => {
@@ -148,11 +151,181 @@ describe('Poem actions [async]', () => {
     store = mockStore({})
   })
 
-  test('should execute fetch poems', () => {
+  const poems = [
+    {
+      _id: 'abc123',
+      author: 'John Doe',
+      volume: 'Volume 1',
+      year: 2000,
+      title: 'Mock title',
+      content: 'One\nTwo\nThree',
+      __v: 0,
+    },
+    {
+      _id: 'efg456',
+      author: 'Jane Smith',
+      volume: 'Volume 2',
+      year: 2019,
+      title: 'Another mock title',
+      content: 'Empty poem',
+      __v: 0,
+    },
+  ]
+
+  // Checking axios mock
+
+  test('should run axios.get', () => {
+    return axios.get('localhost').then(res => {
+      expect(res.data).toEqual(poems)
+      expect(axios.get).toBeCalledTimes(1)
+      expect(axios.get).toBeCalledWith('localhost')
+    })
+  })
+
+  test('should create actions for fetching poems (start, handle success)', () => {
+    const expectedActions = [
+      {
+        type: actionTypes.FETCH_POEMS_REQUEST,
+      },
+      {
+        type: actionTypes.FETCH_POEMS_SUCCESS,
+        data: poems,
+      },
+    ]
+
     return store.dispatch(poemsActions.fetchPoems()).then(() => {
       const actions = store.getActions()
-      console.log('actions', actions)
-      expect(actions[0]).toEqual(poemsActions.fetchPoemsRequest())
+      expect(actions[0]).toEqual(expectedActions[0])
+      expect(actions[1]).toEqual(expectedActions[1])
+    })
+  })
+
+  test('should create actions for fetching poems (start, handle failure)', () => {
+    const expectedActions = [
+      {
+        type: actionTypes.FETCH_POEMS_REQUEST,
+      },
+      {
+        type: actionTypes.FETCH_POEMS_FAILURE,
+        error: new Error('Some error'),
+      },
+    ]
+
+    axios.get.mockImplementationOnce(() => {
+      // console.log('Mock axios.get - reject')
+      return Promise.reject(new Error('Some error'))
+    })
+
+    return store.dispatch(poemsActions.fetchPoems()).then(() => {
+      const actions = store.getActions()
+      expect(actions[0]).toEqual(expectedActions[0])
+      expect(actions[1]).toEqual(expectedActions[1])
+    })
+  })
+
+  test('should create actions for deleting a poem (start, handle success)', () => {
+    const id = 'abc123'
+    const expectedActions = [
+      {
+        type: actionTypes.DELETE_POEM_REQUEST,
+      },
+      {
+        type: actionTypes.DELETE_POEM_SUCCESS,
+        id,
+      },
+    ]
+
+    return store.dispatch(poemsActions.deletePoem(id)).then(() => {
+      const actions = store.getActions()
+      expect(actions[0]).toEqual(expectedActions[0])
+      expect(actions[1]).toEqual(expectedActions[1])
+
+      expect(axios.delete).toBeCalledTimes(1)
+    })
+  })
+
+  test('should create actions for deleting a poem (start, handle failure)', () => {
+    const id = 'abc123'
+    const error = 'Poem was not deleted'
+    const expectedActions = [
+      {
+        type: actionTypes.DELETE_POEM_REQUEST,
+      },
+      {
+        type: actionTypes.DELETE_POEM_FAILURE,
+        error,
+      },
+    ]
+
+    axios.delete.mockImplementationOnce(() => {
+      // console.log('Mock axios.delete - reject')
+      return Promise.reject(error)
+    })
+
+    return store.dispatch(poemsActions.deletePoem(id)).then(() => {
+      const actions = store.getActions()
+      expect(actions[0]).toEqual(expectedActions[0])
+      expect(actions[1]).toEqual(expectedActions[1])
+    })
+  })
+
+  test('should create actions for editing a poem (start, handle success)', () => {
+    const id = 'abc123'
+    const updatedPoem = {
+      _id: 'abc123',
+      author: 'John Doe',
+      volume: 'Volume 1',
+      year: 2000,
+      title: 'Mock title',
+      content: 'One\nTwo\nThree',
+      __v: 0,
+    }
+    const expectedActions = [
+      {
+        type: actionTypes.EDIT_POEM_REQUEST,
+      },
+      {
+        type: actionTypes.EDIT_POEM_SUCCESS,
+        id,
+        updatedPoem,
+      },
+    ]
+
+    axios.get.mockImplementationOnce(() => {
+      // console.log('Mock axios.get - resolve (single poem)')
+      return Promise.resolve({ data: updatedPoem })
+    })
+
+    return store.dispatch(poemsActions.editPoem(id)).then(() => {
+      const actions = store.getActions()
+      // console.log('actions', actions)
+      expect(actions[0]).toEqual(expectedActions[0])
+      expect(actions[1]).toEqual(expectedActions[1])
+    })
+  })
+
+  test('should create actions for editing a poem (start, handle failure)', () => {
+    const id = 'abc123'
+    const error = 'Editing poem failed'
+    const expectedActions = [
+      {
+        type: actionTypes.EDIT_POEM_REQUEST,
+      },
+      {
+        type: actionTypes.EDIT_POEM_FAILURE,
+        error,
+      },
+    ]
+
+    axios.get.mockImplementationOnce(() => {
+      // console.log('Mock axios.get - reject (single poem)')
+      return Promise.reject(error)
+    })
+
+    return store.dispatch(poemsActions.editPoem(id)).then(() => {
+      const actions = store.getActions()
+      expect(actions[0]).toEqual(expectedActions[0])
+      expect(actions[1]).toEqual(expectedActions[1])
     })
   })
 })
