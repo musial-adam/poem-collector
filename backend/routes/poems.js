@@ -16,10 +16,4 @@ router.delete('/poems/:id', poemsController.deletePoem)
 
 router.put('/poems/:id', poemsController.updatePoem)
 
-
-
-
-
-// router.get('/poems/random', poemsController.generateRandomPoems)
-
 module.exports = router

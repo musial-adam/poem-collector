@@ -144,7 +144,7 @@ describe('Poems actions [sync]', () => {
 // deletePoem
 // editPoem
 
-describe('Poem actions [async]', () => {
+describe('Poems actions [async]', () => {
   let store
 
   beforeEach(() => {

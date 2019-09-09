@@ -40,8 +40,3 @@ export const hideModal = () => {
     })
   }
 }
-// export const hideModal = () => {
-//   return {
-//     type: actionTypes.HIDE_MODAL,
-//   }
-// }

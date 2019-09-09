@@ -4,8 +4,6 @@ const Poem = require('../models/poem')
 
 exports.getPoems = async (req, res, next) => {    
   
-  console.log('Hi, I am HIT')
-  
   try {
     const poems = await Poem.find()
     res.status(200).json(poems)
@@ -55,7 +53,6 @@ exports.deletePoem = async (req, res, next) => {
       res.status(200).send('Poem deleted')
     }
     else {
-      console.log('poem not found, you idiot')
       res.status(404).send('Poem could not be deleted, because it was not found')
     }
   }
@@ -80,32 +77,15 @@ exports.updatePoem = async (req, res, next) => {
       poem.content = content
       
       await poem.save()
-      res.status(200).send('Oh, so you want to update me?')
+      res.status(200).send('Poem updated')
     }  
   }
   catch (error) {
     console.log(error)
   }
-  
-  
-  
-  // console.log(req.body)
-  // res.status(200).send('Oh, so you want to update me?')
-  
-  // try {
-  //   const poem = await Poem.findById(poemId)
-  //   if (poem) {
-  //     await Poem.findByIdAndDelete(poemId)
-  //     res.status(200).send('Poem deleted')
-  //   }
-  // }
-  // catch (error) {
-  //   console.log(error)
-  // }
 }
 
 exports.generateRandomPoems = async (req, res, next) => {
-  
   
   for(i=0; i < 3; i++ ) {
     const dummyPoem = dummy(Poem)
@@ -118,19 +98,8 @@ exports.generateRandomPoems = async (req, res, next) => {
       content: dummyPoem.content,
     })
     
-    // console.log('----------------------------------');
-    // console.log(randomPoem)
-    // console.log('----------------------------------');
-    
     
     await randomPoem.save()
-      // .then(result => {
-      //   // res.status(201).send('Random poem added')
-      // })
-      // .catch(error => {
-      //   console.log(error)
-      // })
-    
   }
   
   res.status(201).send('Random poems added')

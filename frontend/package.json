@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
-    "testWatch": "jest --watchAll --verbose"
+    "testWatch": "jest --watchAll --verbose",
+    "testSingle": "jest --watch --verbose poems.test.js"
   },
   "repository": {
     "type": "git",

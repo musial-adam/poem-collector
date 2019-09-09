@@ -30,7 +30,6 @@ const poems = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        //! !! This may be incorrect, improve the code here
         poems: action.data,
       }
     case actionTypes.FETCH_POEMS_FAILURE:
